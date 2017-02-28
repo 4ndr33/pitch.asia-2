@@ -74,60 +74,7 @@
 <?php } ?><!-- END This ends shows only to journalists for their personal list of media queries -->
 
 
-<!-- This begins shows only to expert sources for list of media queries -->
-<?php if( current_user_can('expert_source') ) {  ?> 
-<!-- <img src="https://www.pitch.asia/wp-content/uploads/mymediaqueries-banner.png" border="0">-->
 
-<?php
-//Define your custom post type name in the arguments
-$args = array('post_type' => 'media_query','posts_per_page'=>'5','order'=>'DESC','orderby' => 'date','offset'=>'0');
-//Define the loop based on arguments
-$loop = new WP_Query( $args );
-if( $loop->have_posts() ) :  
-//Display the contents                        
-                        ?>
-
-    <div class="rg-container">
-	<!--<div class="rg-header">
-		<div class="rg-hed">Latest Media Queries</div>
-		<div class="rg-subhed">Are you an expert in any of the topics below?</div>
-	</div>-->
-	<div class="rg-content">
-		<table class="table table-striped table-bordered table-hover">
-			<thead>
-				<th class="text rg-th">Subject</th>
-				<th class="text rg-th">Details</th>
-				<th class="text rg-th">Deadline</th>
-			</thead>
-			<tbody>
-<?php while ( $loop->have_posts() ) : $loop->the_post(); ?>
-<!-- BEGIN IF WE HAVE MEDIA QUERIES THEN ADD MEDIA QUERIES HERE -->
-
-				<tr>
-						<td class="text subject" data-title="Subject"><a href="<?php the_permalink() ?>" rel="bookmark" title="<?php the_title_attribute(); ?>"><?php the_title(); ?></a></td>
-						<td class="text details" data-title="Details"><?php the_excerpt(); ?><a href="<?php the_permalink() ?>" rel="bookmark" title="<?php the_title_attribute(); ?>">More &gt;&gt;</a></td>
-						<td class="text" data-title="Deadline"><?php  if((get_post_meta( $post->ID, 'deadline', true ))) { ?>
-<font color=red><?php echo get_post_meta( $post->ID, 'deadline', true ); ?></font><?php } ?></td>
-				</tr>
-			
-<!-- END IF WE HAVE MEDIA QUERIES THEN ADD MEDIA QUERIES HERE -->
-
-
-        <?php endwhile; ?>
-    
-    </tbody>
-		</table>
-	</div>
-</div>
-    
-    <?php else: ?>
-<!-- START SHOW IF NO MEDIA QUERIES --><div class="wpuf-message"><div align="center"><img src="https://www.pitch.asia/wp-content/uploads/exclamation-octagon-icon.png" border="0"> <strong>No Media Queries From Journalists Match Your Profile</strong><br /><br /><img src="https://www.pitch.asia/wp-content/uploads/red-loading.gif" border="0" title="No Media Queries Found"><br /><br />Make sure your profile is complete so we can match you to journalists' media queries.<br /><br /><a href="https://www.pitch.asia/profile/" class="button-white">Update Profile</a></div></div>
-<br /><!-- END SHOW IF NO MEDIA QUERIES -->
-<?php endif; ?>
-
-
-
-<?php } ?><!-- This ends shows only to expert sources for list of media queries -->
 
 
 
@@ -161,16 +108,93 @@ if( $loop->have_posts() ) :
 
 
 
-<?php echo do_shortcode('[wmls name="newsmonitoring-layout-all" id="4"]'); ?>
-<div align=right><a href="https://www.pitch.asia/news/">See More News &gt;&gt;</a></div>
+<?php //echo do_shortcode('[wmls name="newsmonitoring-layout-all" id="4"]'); ?>
+<!-- <div align=right><a href="https://www.pitch.asia/news/">See More News &gt;&gt;</a></div> 
 
 
 
 
 
 
-<hr>
 
+
+<hr>-->
+
+
+<div class="row">
+                    
+					<!-- This begins shows only to expert sources for list of media queries -->
+<?php if( current_user_can('expert_source') ) {  ?> 
+<!-- <img src="https://www.pitch.asia/wp-content/uploads/mymediaqueries-banner.png" border="0">-->
+
+<div class="col-lg-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i class="fa fa-clock-o fa-fw"></i> Media Query</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="list-group">
+                                   
+                               
+                                
+
+<?php
+//Define your custom post type name in the arguments
+$args = array('post_type' => 'media_query','posts_per_page'=>'10','order'=>'DESC','orderby' => 'date','offset'=>'0');
+//Define the loop based on arguments
+$loop = new WP_Query( $args );
+if( $loop->have_posts() ) :  
+//Display the contents                        
+                        ?>
+
+		
+<?php while ( $loop->have_posts() ) : $loop->the_post(); ?>
+<!-- BEGIN IF WE HAVE MEDIA QUERIES THEN ADD MEDIA QUERIES HERE -->
+				<div class="list-group-item">
+					<span class="badge"><?php  if((get_post_meta( $post->ID, 'deadline', true ))) { ?>
+	<font color=red><?php echo get_post_meta( $post->ID, 'deadline', true ); ?></font><?php } ?></span>
+					<i class="fa fa-fw fa-check"></i> <a href="<?php the_permalink() ?>" rel="bookmark" title="<?php the_title_attribute(); ?>"><?php the_title(); ?></a><br>
+					<i class="fa fa-fw fa-edit"></i> <?php the_excerpt(); ?><a href="<?php the_permalink() ?>" rel="bookmark" title="<?php the_title_attribute(); ?>">More &gt;&gt;</a>
+				</div>
+			
+<!-- END IF WE HAVE MEDIA QUERIES THEN ADD MEDIA QUERIES HERE -->
+
+
+        <?php endwhile; ?>
+    
+    <?php else: ?>
+<!-- START SHOW IF NO MEDIA QUERIES --><div class="wpuf-message" class="list-group-item"><div align="center"><img src="https://www.pitch.asia/wp-content/uploads/exclamation-octagon-icon.png" border="0"> <strong>No Media Queries From Journalists Match Your Profile</strong><br /><br /><img src="https://www.pitch.asia/wp-content/uploads/red-loading.gif" border="0" title="No Media Queries Found"><br /><br />Make sure your profile is complete so we can match you to journalists' media queries.<br /><br /><a href="https://www.pitch.asia/profile/" class="button-white">Update Profile</a></div></div>
+<br /><!-- END SHOW IF NO MEDIA QUERIES -->
+<?php endif; ?>
+									 </div>
+									<div class="text-right">
+                                    <a href="#">See More Media Query <i class="fa fa-arrow-circle-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+<?php } ?><!-- This ends shows only to expert sources for list of media queries -->
+
+                    <div class="col-lg-6">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title"><i class="fa fa-clock-o fa-fw"></i> News</h3>
+                            </div>
+                            <div class="panel-body">
+                                <div class="list-group">
+                                    <?php echo do_shortcode('[wmls name="newsmonitoring-layout-all" id="4"]'); ?>
+                                </div>
+                                <div class="text-right">
+                                    <a href="https://www.pitch.asia/news/">See More News <i class="fa fa-arrow-circle-right"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+					
+                </div>
+				
 <!-- END DASHBOARD NEWS -->
 
 <!--BEGIN DASHBOARD JOBS
@@ -183,7 +207,7 @@ if( $loop->have_posts() ) :
 			</div>
 			<div class="panel-body">
 				<div class="list-group">
-				<?php echo do_shortcode('[jobs per_page="3" show_filters="false"]'); ?>
+				<?php echo do_shortcode('[jobs per_page="10" show_filters="false"]'); ?>
 				</div>
 				<div class="text-right">
 					<a href="https://www.pitch.asia/jobs/">See More Jobs <i class="fa fa-arrow-circle-right"></i></a>
@@ -194,75 +218,14 @@ if( $loop->have_posts() ) :
 </div>
 <!--END DASHBOARD JOBS -->
 
-
-<div class="row">
-                    
-                    <div class="col-lg-6">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title"><i class="fa fa-clock-o fa-fw"></i> Tasks Panel</h3>
-                            </div>
-                            <div class="panel-body">
-                                <div class="list-group">
-                                    <?php echo do_shortcode('[wmls name="newsmonitoring-layout-all" id="4"]'); ?>
-                                </div>
-                                <div class="text-right">
-                                    <a href="#">View All Activity <i class="fa fa-arrow-circle-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-					<div class="col-lg-6">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title"><i class="fa fa-clock-o fa-fw"></i> Tasks Panel</h3>
-                            </div>
-                            <div class="panel-body">
-                                <div class="list-group">
-                                    <a href="#" class="list-group-item">
-                                        <span class="badge">just now</span>
-                                        <i class="fa fa-fw fa-calendar"></i> Calendar updated
-                                    </a>
-                                    <a href="#" class="list-group-item">
-                                        <span class="badge">4 minutes ago</span>
-                                        <i class="fa fa-fw fa-comment"></i> Commented on a post
-                                    </a>
-                                    <a href="#" class="list-group-item">
-                                        <span class="badge">23 minutes ago</span>
-                                        <i class="fa fa-fw fa-truck"></i> Order 392 shipped
-                                    </a>
-                                    <a href="#" class="list-group-item">
-                                        <span class="badge">46 minutes ago</span>
-                                        <i class="fa fa-fw fa-money"></i> Invoice 653 has been paid
-                                    </a>
-                                    <a href="#" class="list-group-item">
-                                        <span class="badge">1 hour ago</span>
-                                        <i class="fa fa-fw fa-user"></i> A new user has been added
-                                    </a>
-                                    <a href="#" class="list-group-item">
-                                        <span class="badge">2 hours ago</span>
-                                        <i class="fa fa-fw fa-check"></i> Completed task: "pick up dry cleaning"
-                                    </a>
-                                    <a href="#" class="list-group-item">
-                                        <span class="badge">yesterday</span>
-                                        <i class="fa fa-fw fa-globe"></i> Saved the world
-                                    </a>
-                                    <a href="#" class="list-group-item">
-                                        <span class="badge">two days ago</span>
-                                        <i class="fa fa-fw fa-check"></i> Completed task: "fix error on sales page"
-                                    </a>
-                                </div>
-                                <div class="text-right">
-                                    <a href="#">View All Activity <i class="fa fa-arrow-circle-right"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 				
 
+<script> // AUTO TRIGGER FOR 1st Load
+jQuery(document).ready( function() {
+	jQuery('.wmle_loadmore').hide(); 
+	});
+</script>    
 
-				
 
 <?php } ?>
 

@@ -25,5 +25,5 @@ border-radius: <?php echo $layoutSettings['border_radius'][0]; ?> <?php echo $la
 .wmle_container .wmle_item .wmle_meta_content{ float:left;}
 .wmle_container .wmle_item .wmle_meta_content .wmle_author_name{ color:<?php echo $layoutSettings['author_name_font_color']; ?>; font-weight:bold; text-transform:capitalize; font-size:<?php echo $layoutSettings['author_name_font_size']; ?>;}
 .wmle_container .wmle_item .wmle_meta_content .wmpe_categories{ color:<?php echo $layoutSettings['categories_font_color']; ?>; font-size:<?php echo $layoutSettings['categories_font_size']; ?>; text-transform:uppercase; font-size:12px;}
-
+.wmle_loadmore .wmle_loadmore_btn{ display:inline-block; padding:5px 15px;border:1px solid #e5e5e5; margin:5px;-webkit-box-shadow: 0px 0px 3px -1px #959595;box-shadow: 0px 0px 3px -1px #959595; color:#454545; text-decoration:none;-webkit-border-radius: 4px;border-radius: 4px;}
 </style>
