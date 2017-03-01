@@ -223,7 +223,13 @@ if( $loop->have_posts() ) :
 <script> // AUTO TRIGGER FOR 1st Load
 jQuery(document).ready( function() {
 	jQuery('.wmle_loadmore').hide(); 
-	});
+	/*jQuery(".company_logo").width(50);
+	jQuery(".company_logo").css("float","right");
+	jQuery(".company_logo").css({'margin-left':'20px'});
+	*/
+});
+	
+	
 </script>    
 
 
@@ -270,6 +276,7 @@ jQuery(document).ready( function() {
 <!-- END PAGE NEWS CHINESE -->
 
 <?php } ?><?php } ?>
+
 
 
 

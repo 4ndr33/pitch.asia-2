@@ -156,6 +156,23 @@ function profound_sidebars() {
 }
 add_action( 'widgets_init', 'profound_sidebars' );
 
+function profound_date_text() {
+    if (is_date()):
+        if (is_day()):
+            $date_text = __('Day', 'profound');
+        elseif (is_month()):
+            $date_text = __('Month', 'profound');
+        elseif (is_year()):
+            $date_text = __('Year', 'profound');
+        else:
+            $date_text = __('Period', 'profound');
+        endif;
+
+        return $date_text;
+
+    endif;
+}
+
 
 /**
  * Returns Theme Fonts based on $method
@@ -523,11 +540,108 @@ else
 
 
 
-
+if ( is_user_logged_in() ) {
 ?>
 	
 
     
+	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/"><img src="https://www.pitch.asia/wp-content/uploads/pitchasia-logo-dashboardheadertransparent-h-30.png" style="float:left;margin-top:0px;padding-top:0px;" /></a>
+            </div>
+            <!-- Top Menu Items -->
+            <ul class="nav navbar-right top-nav">
+				<?php 
+				if ( is_user_logged_in() ) {
+				
+				?>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <?php echo("$DisplayName"); ?> <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="/profile"><i class="fa fa-fw fa-user"></i> Profile</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="<?php echo wp_logout_url( get_bloginfo('url') ); ?> "><i class="fa fa-fw fa-power-off"></i> Log Out</a>
+                        </li>
+                    </ul>
+                </li>
+				<?php 
+				}
+				else
+				{
+					/*
+					echo '<div align=right><br><br>';
+					echo '<a href="https://www.pitch.asia/login/" class="btn btn-danger">&nbsp;&nbsp; LOGIN &nbsp;&nbsp;</a><br><br>';
+					echo '<a href="https://www.pitch.asia/register-expertsource/" class="btn btn-success">&nbsp;&nbsp; Expert Source Registration &nbsp;&nbsp;</a>';
+					echo '&nbsp;&nbsp;&nbsp;';
+					echo '<a href="https://www.pitch.asia/register-journalist/" class="btn btn-primary">&nbsp;&nbsp; Journalist Registration &nbsp;&nbsp;</a>';
+					echo '<br /><br /><strong>Join 20,000+ Journalists and 85,000+ Experts Building Great Stories!</strong></div>';
+					*/
+				}
+				?>
+            </ul>
+            <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+            <div class="collapse navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav side-nav">
+                    <li <?php if (is_page('dashboard')) { ?> class="active" <?php } ?>>
+                        <a href="/dashboard"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+                    </li>
+					<?php if( current_user_can('expert_source') ) { ?>
+					<li <?php if (is_page('media-query')) { ?> class="active" <?php } ?>>
+						<a href="/media-query"><i class="fa fa-edit fa-fw"></i> <?php echo("$tempMediaQuery"); ?></a>
+					</li>
+					
+					<?php } else { ?>
+					<li <?php if (is_page('mediaquery')) { ?> class="active" <?php } ?>>
+						<a href="/mediaquery"><i class="fa fa-edit fa-fw"></i> <?php echo("$tempMediaQuery"); ?></a>
+					</li>
+					<?php } ?>
+					
+					
+					<li>
+						<a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> News <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="demo">
+                            <li <?php if (is_page('news')) { ?> class="active" <?php } ?>>
+                                <a href="/news">News</a>
+                            </li>
+                            <li <?php if (is_page('news-chinese')) { ?> class="active" <?php } ?>>
+                                <a href="/news-chinese">News Chinese</a>
+                            </li>
+                        </ul>
+						<!-- /.nav-second-level -->
+					</li>
+					<li <?php if (is_page('jobs')) { ?> class="active" <?php } ?>>
+						<a href="/jobs" data-toggle="collapse" data-target="#demo2"><i class="fa fa-fw fa-desktop"></i> Jobs <i class="fa fa-fw fa-caret-down"></i></a>
+                        <ul id="demo2">
+                            <li <?php if (is_page('post-a-job')) { ?> class="active" <?php } ?>>
+								<a href="/post-a-job">Post A Job</a>
+							</li>
+							<li <?php if (is_page('job-dashboard')) { ?> class="active" <?php } ?>>
+								<a href="/job-dashboard">Manage Jobs</a>
+							</li>
+                        </ul>
+					</li>
+					<li <?php if (is_page('messageboard/forum/general-message-board/')) { ?> class="active" <?php } ?>>
+						<a href="/messageboard/forum/general-message-board/"><i class="fa fa-table fa-fw"></i> Message Board</a>
+					</li>
+                    
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </nav>
+<?php }
+else
+{
+?>
 	<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
             <!-- Brand and toggle get grouped for better mobile display -->
             <div class="navbar-header">
@@ -575,45 +689,38 @@ else
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
-                    <li <?php if (is_page('dashboard')) { ?> class="active" <?php } ?>>
-                        <a href="/dashboard"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+                    <li <?php if (is_page('/')) { ?> class="active" <?php } ?>>
+                        <a href="/"><i class="fa fa-dashboard fa-fw"></i> Home</a>
                     </li>
-					<li <?php if (is_page('mediaquery')) { ?> class="active" <?php } ?>>
-						<a href="/mediaquery"><i class="fa fa-edit fa-fw"></i> <?php echo("$tempMediaQuery"); ?></a>
+					<li <?php if (is_page('login')) { ?> class="active" <?php } ?>>
+						<a href="/login"><i class="fa fa-edit fa-fw"></i> Login</a>
 					</li>
 					<li>
-						<a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> News <i class="fa fa-fw fa-caret-down"></i></a>
+						<a href="javascript:;" data-toggle="collapse" data-target="#demo"><i class="fa fa-fw fa-arrows-v"></i> Registration <i class="fa fa-fw fa-caret-down"></i></a>
                         <ul id="demo">
-                            <li <?php if (is_page('news')) { ?> class="active" <?php } ?>>
-                                <a href="/news">News</a>
+                            <li <?php if (is_page('register-journalist')) { ?> class="active" <?php } ?>>
+                                <a href="/register-journalist">Journalist Registration</a>
                             </li>
-                            <li <?php if (is_page('news-chinese')) { ?> class="active" <?php } ?>>
-                                <a href="/news-chinese">News Chinese</a>
+                            <li <?php if (is_page('register-expertsource')) { ?> class="active" <?php } ?>>
+                                <a href="/register-expertsource">Expert Registration</a>
                             </li>
                         </ul>
 						<!-- /.nav-second-level -->
 					</li>
-					<li <?php if (is_page('jobs')) { ?> class="active" <?php } ?>>
-						<a href="/jobs" data-toggle="collapse" data-target="#demo2"><i class="fa fa-fw fa-desktop"></i> Jobs <i class="fa fa-fw fa-caret-down"></i></a>
-                        <ul id="demo2">
-                            <li <?php if (is_page('post-a-job')) { ?> class="active" <?php } ?>>
-								<a href="/post-a-job">Post A Job</a>
-							</li>
-							<li <?php if (is_page('job-dashboard')) { ?> class="active" <?php } ?>>
-								<a href="/job-dashboard">Manage Jobs</a>
-							</li>
-                        </ul>
-					</li>
-					<li <?php if (is_page('messageboard/forum/general-message-board/')) { ?> class="active" <?php } ?>>
-						<a href="/messageboard/forum/general-message-board/"><i class="fa fa-table fa-fw"></i> Message Board</a>
-					</li>
+					
+						<li <?php if (is_page('contact')) { ?> class="active" <?php } ?>>
+                            <a href="/contact"><i class="fa fa-phone fa-fw"></i> Contact Us</a>
+                        </li>
+						<li <?php if (is_page('about')) { ?> class="active" <?php } ?>>
+                            <a href="/about"><i class="fa fa-question fa-fw"></i> About Us</a>
+                        </li>
                     
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
         </nav>
-	
 <?php
+}
 }
 
 function pitch_dashboard_nav2() {
