@@ -30,13 +30,23 @@
 //a user manually deletes a media_query from their own frontend. This is necessary because
 //WPUF plugin doesn't use the default Wordpress delete function. We also added something to
 //functions.php for this delete to work.
+//style="margin-top: -50px;"
 if(isset($_GET['action']) && $_GET['action'] == 'del'){
 	delete_post_callback();	
 }
 ?>	
 </head>
-
+<?php if( current_user_can('administrator') ) {  ?> 
+<body <?php body_class(); ?> style="margin-top: -50px;">
+<?php
+}
+else
+{
+?>
 <body <?php body_class(); ?>>
+<?php
+}
+?>
     <div id="wrapper">
 
 
