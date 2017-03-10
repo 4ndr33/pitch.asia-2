@@ -81,6 +81,16 @@ if ( is_user_logged_in() ) {
 
 			<?php pitch_dashboard_nav_new(); ?>
 			
-                        
-            <div id="page-wrapper" class="main-section grid-col-16 clearfix">
+            <?php if( current_user_can('administrator') ) {  ?> 
+			<div id="page-wrapper" class="main-section grid-col-16 clearfix" style="margin-top: 50px;">
+			<?php
+			}
+			else
+			{
+			?>
+			<div id="page-wrapper" class="main-section grid-col-16 clearfix">
+			<?php
+			}
+			?>            
+            
 			<div class="container-fluid">
