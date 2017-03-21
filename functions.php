@@ -225,7 +225,7 @@ function wptuts_styles_with_the_lot()
 	
 	/*
 	 // Register the script like this for a theme:
-    wp_register_script( 'custom-script', get_template_directory_uri() . 'js/jquery.js', array(), '20120208',true );
+    wp_register_script( 'custom-script', get_template_directory_uri() . '/js/jquery.js', array(), '20120208',true );
     // For either a plugin or a theme, you can then enqueue the script:
     wp_enqueue_script( 'custom-script');
 	*/

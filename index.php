@@ -105,7 +105,18 @@
 	<!-- <a href="https://www.pitch.asia/news/"><img src="https://www.pitch.asia/wp-content/uploads/newsupdates-banner.png" border="0" alt="News Updates"></a>-->
 
 
+<?php
 
+global $wpdb;    
+$result2 = $wpdb->get_results( "SELECT * FROM wp_usermeta WHERE meta_key='wp_capabilities' and meta_value LIKE '%journalistwriter%'");
+print_r($result2);
+if($result2)
+{
+echo("ada<br>");
+}
+$myrows = $wpdb->get_results( "SELECT ID FROM wp_users" );
+print_r($myrows);
+?>
 
 
 <?php //echo do_shortcode('[wmls name="newsmonitoring-layout-all" id="4"]'); ?>
@@ -232,6 +243,76 @@ jQuery(document).ready( function() {
 	
 </script>    
 
+
+<div class="row">
+	<div class="col-lg-6">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3 class="panel-title"><i class="fa fa-money fa-fw"></i> Total Users Widget</h3>
+			</div>
+			<div class="panel-body">
+				<div class="table-responsive">
+					<table class="table table-hover table-striped">
+						<thead>
+							<tr>
+								<th colspan="4">Network Statistics</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td colspan="2"><center><?php echo get_avatar( get_current_user_id() ); ?></center></td>
+								<td colspan="2"><center><?php echo get_avatar( get_current_user_id() ); ?></center></td>
+							</tr>
+						 
+							<tr>
+								<td colspan="2"><center>Experts</center></td>
+								<td colspan="2"><center>Journalists</center></td>
+							</tr>
+							<tr>
+								<td colspan="4"><b>Newest Member</b></td>
+							</tr>
+							<tr>
+								<td rowspan="2"><?php echo get_avatar( get_current_user_id() ); ?></td>
+								<td>Dede</td>
+								<td rowspan="2"><?php echo get_avatar( get_current_user_id() ); ?></td>
+								<td>Dede</td>
+							</tr>
+							<tr>
+								<td>1 Experts</td>
+								<td>1 Journalists</td>
+							</tr>
+							<tr>
+								<td rowspan="2"><?php echo get_avatar( get_current_user_id() ); ?></td>
+								<td>Dede</td>
+								<td rowspan="2"><?php echo get_avatar( get_current_user_id() ); ?></td>
+								<td>Dede</td>
+							</tr>
+							<tr>
+								<td>2 Experts</td>
+								<td>2 Journalists</td>
+							</tr>
+							
+						</tbody>
+					</table>
+				</div>
+				
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-lg-12">
+		<div class="panel panel-primary">
+			<div class="panel-heading">
+				<h3 class="panel-title"><i class="fa fa-bar-chart-o"></i> News Update Chart</h3>
+			</div>
+			<div class="panel-body">
+				<div id="morris-line-chart"></div>
+			</div>
+		</div>
+	</div>
+</div>
 
 <?php } ?>
 
