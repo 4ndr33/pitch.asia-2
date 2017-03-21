@@ -106,15 +106,52 @@
 
 
 <?php
+global $wpdb;
+    
+$journalistwriter = $wpdb->get_var( "SELECT count(meta_key) FROM wp_usermeta WHERE meta_key='wp_capabilities' and meta_value LIKE '%journalistwriter%'");
 
-global $wpdb;    
-$result2 = $wpdb->get_results( "SELECT * FROM wp_usermeta WHERE meta_key='wp_capabilities' and meta_value LIKE '%journalistwriter%'");
-print_r($result2);
-if($result2)
+echo("$journalistwriter<br><br>");
+
+$expert_source = $wpdb->get_var( "SELECT count(meta_key) FROM wp_usermeta WHERE meta_key='wp_capabilities' and meta_value LIKE '%expert_source%'");
+
+echo("$expert_source<br><br>");
+
+
+$latest_experts=0;
+$myrows = $wpdb->get_results( "SELECT user_id FROM wp_usermeta WHERE meta_key='wp_capabilities' and meta_value LIKE '%expert_source%' ORDER BY umeta_id DESC  LIMIT 0 , 2" );
+print_r($myrows);
+
+
+if ( $myrows )
 {
-echo("ada<br>");
+	foreach ( $myrows as $myrows_experts )
+	{
+		$latest_experts=$latest_experts+1;
+		$experts_id[$latest_experts-1]=$myrows_experts->user_id;
+		$experts_name[$latest_experts-1]="";
+		$experts_name[$latest_experts-1] = $wpdb->get_var( "SELECT display_name FROM wp_users WHERE ID='".$experts_id[$latest_experts-1]."'");
+	}	
 }
-$myrows = $wpdb->get_results( "SELECT ID FROM wp_users" );
+
+
+$latest_journalists=0;
+$myrows = $wpdb->get_results( "SELECT user_id FROM wp_usermeta WHERE meta_key='wp_capabilities' and meta_value LIKE '%journalistwriter%' ORDER BY umeta_id DESC  LIMIT 0 , 2" );
+print_r($myrows);
+
+
+if ( $myrows )
+{
+	foreach ( $myrows as $myrows_journalists )
+	{
+		$latest_journalists=$latest_journalists+1;
+		$journalists_id[$latest_journalists-1]=$myrows_journalists->user_id;
+		$journalists_name[$latest_journalists-1]="";
+		$journalists_name[$latest_journalists-1] = $wpdb->get_var( "SELECT display_name FROM wp_users WHERE ID='".$journalists_id[$latest_journalists-1]."'");
+	}	
+}
+
+
+$myrows = $wpdb->get_results( "SELECT ID FROM wp_users LIMIT 0 , 2" );
 print_r($myrows);
 ?>
 
@@ -248,7 +285,7 @@ jQuery(document).ready( function() {
 	<div class="col-lg-6">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<h3 class="panel-title"><i class="fa fa-money fa-fw"></i> Total Users Widget</h3>
+				<h3 class="panel-title"><i class="fa fa-users fa-fw"></i> Total Users Widget</h3>
 			</div>
 			<div class="panel-body">
 				<div class="table-responsive">
@@ -265,31 +302,31 @@ jQuery(document).ready( function() {
 							</tr>
 						 
 							<tr>
-								<td colspan="2"><center>Experts</center></td>
-								<td colspan="2"><center>Journalists</center></td>
+								<td colspan="2"><center><?php echo("$expert_source Experts"); ?></center></td>
+								<td colspan="2"><center><?php echo("$journalistwriter Journalists"); ?></center></td>
 							</tr>
 							<tr>
 								<td colspan="4"><b>Newest Member</b></td>
 							</tr>
 							<tr>
-								<td rowspan="2"><?php echo get_avatar( get_current_user_id() ); ?></td>
-								<td>Dede</td>
-								<td rowspan="2"><?php echo get_avatar( get_current_user_id() ); ?></td>
-								<td>Dede</td>
+								<td rowspan="2"><?php if($latest_experts>=1){ echo get_avatar( $experts_id[0] ); } ?></td>
+								<td><?php if($latest_experts>=1){ echo $experts_name[0]; } ?></td>
+								<td rowspan="2"><?php if($latest_journalists>=1){ echo get_avatar( $journalists_id[0] ); } ?></td>
+								<td><?php if($latest_journalists>=1){ echo $journalists_name[0]; } ?></td>
 							</tr>
 							<tr>
-								<td>1 Experts</td>
-								<td>1 Journalists</td>
+								<td>Expert</td>
+								<td>Journalist</td>
 							</tr>
 							<tr>
-								<td rowspan="2"><?php echo get_avatar( get_current_user_id() ); ?></td>
-								<td>Dede</td>
-								<td rowspan="2"><?php echo get_avatar( get_current_user_id() ); ?></td>
-								<td>Dede</td>
+								<td rowspan="2"><?php if($latest_experts>=2){ echo get_avatar( $experts_id[1] ); } ?></td>
+								<td><?php if($latest_experts>=2){ echo $experts_name[1]; } ?></td>
+								<td rowspan="2"><?php if($latest_journalists>=2){ echo get_avatar( $journalists_id[1] ); } ?></td>
+								<td><?php if($latest_journalists>=2){ echo $journalists_name[1]; } ?></td>
 							</tr>
 							<tr>
-								<td>2 Experts</td>
-								<td>2 Journalists</td>
+								<td>Expert</td>
+								<td>Journalist</td>
 							</tr>
 							
 						</tbody>
