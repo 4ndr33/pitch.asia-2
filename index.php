@@ -524,10 +524,10 @@ jQuery(document).ready( function() {
 						</thead>
 						<tbody>
 							<tr>
-								<td colspan="2"><center><h2><b>Experts</b></h2></center></td>
-								<td colspan="2"><center><h2><b>Journalists</b></h2></center></td>
+								<td colspan="2"><center><h2><b><img src="https://www.pitch.asia/wp-content/uploads/Groups-Meeting-Dark-icon.png" style="max-width: 100%;max-height: 100%;" /></b></h2></center></td>
+								<td colspan="2"><center><h2><b><img src="https://www.pitch.asia/wp-content/uploads/Groups-Meeting-Light-icon.png" style="max-width: 100%;max-height: 100%;" /></b></h2></center></td>
 							</tr>
-						 
+						  
 							<tr>
 								<td colspan="2"><center><?php echo("$expert_source Experts"); ?></center></td>
 								<td colspan="2"><center><?php echo("$journalistwriter Journalists"); ?></center></td>
@@ -536,7 +536,7 @@ jQuery(document).ready( function() {
 								<td colspan="4"><b>Newest Member</b></td>
 							</tr>
 							<tr>
-								<td rowspan="2"><?php if($latest_experts>=1){ echo "<a href='https://www.pitch.asia/view-profile?id=$experts_id[0]'>".get_avatar( $experts_id[0] )."</a>"; } ?></td>
+								<td rowspan="2"><?php if($latest_experts>=1){ echo "<a href='https://www.pitch.asia/view-profile?id=$experts_id[0]'><img src=".get_avatar_url( $experts_id[0] )." style='max-width: 100%;max-height: 100%;' /></a>"; } ?></td>
 								<td><?php if($latest_experts>=1){ echo $experts_name[0]; } ?></td>
 								<td rowspan="2"><?php if($latest_journalists>=1){ echo "<a href='https://www.pitch.asia/view-profile?id=$journalists_id[0]'>".get_avatar( $journalists_id[0] )."</a>"; } ?></td>
 								<td><?php if($latest_journalists>=1){ echo $journalists_name[0]; } ?></td>
@@ -587,7 +587,8 @@ jQuery(document).ready( function() {
 	  ,
 	  xkey: 'y',
 	  ykeys: ['a', 'b'],
-	  labels: ['Chinese News', 'English News']
+	  labels: ['Chinese News', 'English News'],
+	  resize: true
 	});
 	
 </script>
