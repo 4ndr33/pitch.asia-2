@@ -22,6 +22,12 @@ body {
    width: 100%;
 }
 
+
+.auto_resize_img img {
+   width: 80%;	
+   height: auto;
+}
+
 @media(min-width:768px) {
     body {
         margin-top: 50px;

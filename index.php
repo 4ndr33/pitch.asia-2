@@ -523,38 +523,39 @@ jQuery(document).ready( function() {
 							</tr>
 						</thead>
 						<tbody>
-							<tr>
-								<td colspan="2"><center><h2><b><img src="https://www.pitch.asia/wp-content/uploads/Groups-Meeting-Dark-icon.png" style="max-width: 100%;max-height: 100%;" /></b></h2></center></td>
-								<td colspan="2"><center><h2><b><img src="https://www.pitch.asia/wp-content/uploads/Groups-Meeting-Light-icon.png" style="max-width: 100%;max-height: 100%;" /></b></h2></center></td>
+							<tr style="width: 100%;">
+								<td colspan="2" style="width: 50%;max-width: 50%;"><center><h2><b><img src="https://www.pitch.asia/wp-content/uploads/Groups-Meeting-Dark-icon.png" style="width: 80%;height: auto;" /></b></h2></center></td>
+								<td colspan="2" style="width: 50%;max-width: 50%;"><center><h2><b><img src="https://www.pitch.asia/wp-content/uploads/Groups-Meeting-Light-icon.png" style="width: 80%;height: auto;" /></b></h2></center></td>
 							</tr>
 						  
-							<tr>
-								<td colspan="2"><center><?php echo("$expert_source Experts"); ?></center></td>
-								<td colspan="2"><center><?php echo("$journalistwriter Journalists"); ?></center></td>
+							<tr style="width: 100%;">
+								<td colspan="2" style="width: 50%;max-width: 50%;"><center><?php echo("$expert_source Experts"); ?></center></td>
+								<td colspan="2" style="width: 50%;max-width: 50%;"><center><?php echo("$journalistwriter Journalists"); ?></center></td>
 							</tr>
 							<tr>
 								<td colspan="4"><b>Newest Member</b></td>
 							</tr>
-							<tr>
-								<td rowspan="2"><?php if($latest_experts>=1){ echo "<a href='https://www.pitch.asia/view-profile?id=$experts_id[0]'><img src=".get_avatar_url( $experts_id[0] )." style='max-width: 100%;max-height: 100%;' /></a>"; } ?></td>
-								<td><?php if($latest_experts>=1){ echo $experts_name[0]; } ?></td>
-								<td rowspan="2"><?php if($latest_journalists>=1){ echo "<a href='https://www.pitch.asia/view-profile?id=$journalists_id[0]'>".get_avatar( $journalists_id[0] )."</a>"; } ?></td>
-								<td><?php if($latest_journalists>=1){ echo $journalists_name[0]; } ?></td>
+							<tr style="width: 100%;">
+								<td rowspan="2" style="width: 25%;max-width: 25%;"><?php if($latest_experts>=1){ echo "<a href='https://www.pitch.asia/view-profile?id=$experts_id[1]'><span class='auto_resize_img'>".get_avatar( $experts_id[1] )."</span></a>"; } ?></td>
+								<td style="width: 25%;max-width: 25%;"><?php if($latest_experts>=1){ echo $experts_name[0]; } ?></td>
+								<td rowspan="2" style="width: 25%;max-width: 25%;"><?php if($latest_journalists>=1){ echo "<a href='https://www.pitch.asia/view-profile?id=$journalists_id[0]'><span class='auto_resize_img'>".get_avatar( $journalists_id[0] )."</span></a>"; } ?></td>
+								<td style="width: 25%;max-width: 25%;"><?php if($latest_journalists>=1){ echo $journalists_name[0]; } ?></td>
 							</tr>
 							<tr>
 								<td>Expert</td>
 								<td>Journalist</td>
 							</tr>
 							<tr>
-								<td rowspan="2"><?php if($latest_experts>=2){ echo "<a href='https://www.pitch.asia/view-profile?id=$experts_id[1]'>".get_avatar( $experts_id[1] )."</a>"; } ?></td>
+								<td rowspan="2"><?php if($latest_experts>=2){ echo "<a href='https://www.pitch.asia/view-profile?id=$experts_id[1]'><span class='auto_resize_img'>".get_avatar( $experts_id[1] )."</span></a>"; } ?></td>
 								<td><?php if($latest_experts>=2){ echo $experts_name[1]; } ?></td>
-								<td rowspan="2"><?php if($latest_journalists>=2){ echo "<a href='https://www.pitch.asia/view-profile?id=$journalists_id[1]'>".get_avatar( $journalists_id[1] )."</a>"; } ?></td>
+								<td rowspan="2"><?php if($latest_journalists>=2){ echo "<a href='https://www.pitch.asia/view-profile?id=$journalists_id[1]'><span class='auto_resize_img'>".get_avatar( $journalists_id[1] )."</span></a>"; } ?></td>
 								<td><?php if($latest_journalists>=2){ echo $journalists_name[1]; } ?></td>
 							</tr>
 							<tr>
 								<td>Expert</td>
 								<td>Journalist</td>
 							</tr>
+							
 							
 						</tbody>
 					</table>
