@@ -236,19 +236,19 @@ function wptuts_styles_with_the_lot()
     wp_enqueue_script( 'custom-script2');
 	
 	// Register the script like this for a theme:
-    wp_register_script( 'custom-script3', get_template_directory_uri() . '/js/plugins/morris/raphael.min.js', array(), '20120208',true );
+    wp_register_script( 'custom-script3', get_template_directory_uri() . '/js/plugins/morris/raphael.min.js', array(), '20120208' );
     // For either a plugin or a theme, you can then enqueue the script:
     wp_enqueue_script( 'custom-script3');
 	
 	// Register the script like this for a theme:
-    wp_register_script( 'custom-script4', get_template_directory_uri() . '/js/plugins/morris/morris.min.js', array(), '20120208',true );
+    wp_register_script( 'custom-script4', get_template_directory_uri() . '/js/plugins/morris/morris.min.js', array(), '20120208' );
     // For either a plugin or a theme, you can then enqueue the script:
     wp_enqueue_script( 'custom-script4');
 	
 	// Register the script like this for a theme:
-    wp_register_script( 'custom-script5', get_template_directory_uri() . '/js/plugins/morris/morris-data.js', array(), '20120208',true );
+    //wp_register_script( 'custom-script5', get_template_directory_uri() . '/js/plugins/morris/morris-data.js', array(), '20120208',true );
     // For either a plugin or a theme, you can then enqueue the script:
-    wp_enqueue_script( 'custom-script5');
+    //wp_enqueue_script( 'custom-script5');
 	
 	/**/
 	

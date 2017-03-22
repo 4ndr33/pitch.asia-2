@@ -53,6 +53,163 @@
 
 
 
+<?php if (is_page('view-profile')) { ?> <!-- BEGIN Pitch.Asia: Added to show different profile information for the Source Expert or the Journalist -->
+<h1 style="margin-top: -20px;">View Profile</h1>
+<hr>
+<?php 
+
+global $wpdb;
+
+$view_id=0;
+if(isset($_GET["id"]))
+{
+	$view_id=$_GET["id"];
+	
+	$myrows = $wpdb->get_results( "SELECT user_login,user_email,user_url FROM wp_users WHERE ID='".$view_id."'" );
+
+
+	if ( $myrows )
+	{
+		foreach ( $myrows as $myrows_view_profile )
+		{
+			
+			$view_wp_capabilities = $wpdb->get_var( "SELECT meta_value FROM wp_usermeta WHERE user_id='".$view_id."' and meta_key='wp_capabilities'");
+			$view_firstname = $wpdb->get_var( "SELECT meta_value FROM wp_usermeta WHERE user_id='".$view_id."' and meta_key='first_name'");
+			$view_surname = $wpdb->get_var( "SELECT meta_value FROM wp_usermeta WHERE user_id='".$view_id."' and meta_key='last_name'");
+			$view_mybio = $wpdb->get_var( "SELECT meta_value FROM wp_usermeta WHERE user_id='".$view_id."' and meta_key='description'");
+			$view_prefix = $wpdb->get_var( "SELECT meta_value FROM wp_usermeta WHERE user_id='".$view_id."' and meta_key='prefix'");
+			$view_publication_name = $wpdb->get_var( "SELECT meta_value FROM wp_usermeta WHERE user_id='".$view_id."' and meta_key='publication_name'");
+			
+			$view_job_title = $wpdb->get_var( "SELECT meta_value FROM wp_usermeta WHERE user_id='".$view_id."' and meta_key='job_title'");
+			$view_twitter = $wpdb->get_var( "SELECT meta_value FROM wp_usermeta WHERE user_id='".$view_id."' and meta_key='twitter'");
+			$view_linkedin = $wpdb->get_var( "SELECT meta_value FROM wp_usermeta WHERE user_id='".$view_id."' and meta_key='linkedin'");
+			$view_nationality = $wpdb->get_var( "SELECT meta_value FROM wp_usermeta WHERE user_id='".$view_id."' and meta_key='nationality'");
+			$view_location = $wpdb->get_var( "SELECT meta_value FROM wp_usermeta WHERE user_id='".$view_id."' and meta_key='location'");
+			$view_regional_coverage = $wpdb->get_var( "SELECT meta_value FROM wp_usermeta WHERE user_id='".$view_id."' and meta_key='regional_coverage'");
+			$view_topic_coverage = $wpdb->get_var( "SELECT meta_value FROM wp_usermeta WHERE user_id='".$view_id."' and meta_key='topic_coverage'");
+			
+			$view_regional_expertise = $wpdb->get_var( "SELECT meta_value FROM wp_usermeta WHERE user_id='".$view_id."' and meta_key='regional_expertise'");
+			$view_topic_expertise = $wpdb->get_var( "SELECT meta_value FROM wp_usermeta WHERE user_id='".$view_id."' and meta_key='topic_expertise'");
+		
+
+	?>
+	
+	<div class="table-responsive">
+		<table class="table">
+			<tbody>
+				<tr>
+					<td ><b>Username</b></td>
+					<td ><?php echo $myrows_view_profile->user_login; ?></td>
+				</tr>
+				<tr>
+					<td ><b>Email</b></td>
+					<td ><?php echo $myrows_view_profile->user_email; ?></td>
+				</tr>
+				<tr>
+					<td ><b>First Name</b></td>
+					<td ><?php echo $view_firstname; ?></td>
+				</tr>
+				<tr>
+					<td ><b>Surname</b></td>
+					<td ><?php echo $view_surname; ?></td>
+				</tr>
+				<tr>
+					<td ><b>Prefix</b></td>
+					<td ><?php echo $view_prefix; ?></td>
+				</tr>
+				<tr>
+					<td ><b>My Bio</b></td>
+					<td ><?php echo $view_mybio; ?></td>
+				</tr>
+				<tr>
+					<td ><b>Company Website</b></td>
+					<td ><?php echo $myrows_view_profile->user_url; ?></td>
+				</tr>
+				<tr>
+					<td ><b>Publication Name</b></td>
+					<td ><?php echo $view_publication_name; ?></td>
+				</tr>
+				<tr>
+					<td ><b>Job Title</b></td>
+					<td ><?php echo $view_job_title; ?></td>
+				</tr>
+				<tr>
+					<td ><b>Twitter</b></td>
+					<td ><?php echo $view_twitter; ?></td>
+				</tr>
+				<tr>
+					<td ><b>LinkedIn</b></td>
+					<td ><?php echo $view_linkedin; ?></td>
+				</tr>
+				<tr>
+					<td ><b>My Headshot</b></td>
+					<td ><?php echo get_avatar($view_id); ?></td>
+				</tr>
+				
+				<tr>
+					<td ><b>Nationality</b></td>
+					<td ><?php echo $view_nationality; ?></td>
+				</tr>
+				<tr>
+					<td ><b>Location</b></td>
+					<td ><?php echo $view_location; ?></td>
+				</tr>
+					<?php if (strpos($view_wp_capabilities, 'journalistwriter') == true) 
+					{
+						?>
+						<tr>
+							<td ><b>Regional Coverage</b></td>
+							<td ><?php echo str_replace("|","<br>",$view_regional_coverage); ?></td>
+						</tr>
+						<tr>
+							<td ><b>Topic Coverage</b></td>
+							<td ><?php echo str_replace("|","<br>",$view_topic_coverage); ?></td>
+						</tr>
+						
+					<?php
+					}
+					else if (strpos($view_wp_capabilities, 'expert_source') == true) 
+					{
+				?>
+						<tr>
+							<td ><b>Regional Expertise</b></td>
+							<td ><?php echo str_replace("|","<br>",$view_regional_expertise); ?></td>
+						</tr>
+						<tr>
+							<td ><b>Topic Expertise</b></td>
+							<td ><?php echo str_replace("|","<br>",$view_topic_expertise); ?></td>
+						</tr>
+
+					<?php
+					}
+					
+				?>
+				
+				
+			</tbody>
+		</table>
+	</div>
+
+	<?php
+	
+		}	
+	}
+	
+	
+	
+	
+	
+	
+}
+
+
+?>
+<?php } ?>
+
+
+
+
+
 
 
 <!-- END Pitch.Asia: Added to show different profile information for the Source Expert or the Journalist -->
@@ -110,16 +267,13 @@ global $wpdb;
     
 $journalistwriter = $wpdb->get_var( "SELECT count(meta_key) FROM wp_usermeta WHERE meta_key='wp_capabilities' and meta_value LIKE '%journalistwriter%'");
 
-echo("$journalistwriter<br><br>");
 
 $expert_source = $wpdb->get_var( "SELECT count(meta_key) FROM wp_usermeta WHERE meta_key='wp_capabilities' and meta_value LIKE '%expert_source%'");
 
-echo("$expert_source<br><br>");
 
 
 $latest_experts=0;
 $myrows = $wpdb->get_results( "SELECT user_id FROM wp_usermeta WHERE meta_key='wp_capabilities' and meta_value LIKE '%expert_source%' ORDER BY umeta_id DESC  LIMIT 0 , 2" );
-print_r($myrows);
 
 
 if ( $myrows )
@@ -136,7 +290,6 @@ if ( $myrows )
 
 $latest_journalists=0;
 $myrows = $wpdb->get_results( "SELECT user_id FROM wp_usermeta WHERE meta_key='wp_capabilities' and meta_value LIKE '%journalistwriter%' ORDER BY umeta_id DESC  LIMIT 0 , 2" );
-print_r($myrows);
 
 
 if ( $myrows )
@@ -151,8 +304,82 @@ if ( $myrows )
 }
 
 
-$myrows = $wpdb->get_results( "SELECT ID FROM wp_users LIMIT 0 , 2" );
-print_r($myrows);
+//90 days
+$latest_news=0;
+$news_date_condition=date('Y-m-d', strtotime('-90 days'));
+$news_date_condition .=" 00:00:00";
+//echo("news_date_condition : $news_date_condition <br>");
+$myrows = $wpdb->get_results( "SELECT ID,post_date FROM wp_posts WHERE post_type='post' and post_date >='$news_date_condition'" );
+if ( $myrows )
+{
+	foreach ( $myrows as $myrows_news )
+	{
+		$no_news=-1;
+		$new=0;
+		$news_post_date=substr($myrows_news->post_date,0,10);
+		if($latest_news==0)
+		{
+			$latest_news=$latest_news+1;
+			$no_news=$latest_news-1;
+			$new=1;
+		}
+		else
+		{
+			for($i=0;$i<=$latest_news-1;$i++)
+			{
+				if($news_time[$i]==$news_post_date)
+				{
+					$no_news=$i;
+					break;					
+				}
+			}
+			if($no_news==-1)
+			{
+				$latest_news=$latest_news+1;
+				$no_news=$latest_news-1;
+				$new=1;
+			}
+		}
+		if($no_news>=0)
+		{
+			if($new==1)
+			{
+				$news_time[$no_news]=$news_post_date;
+				$news_english[$no_news]=0;
+				$news_chinese[$no_news]=0;
+				
+			}
+			
+			$news_category = $wpdb->get_var( "SELECT term_taxonomy_id FROM wp_term_relationships WHERE object_id='".$myrows_news->ID."'");
+			$news_category = (int)($news_category);
+			if($news_category==651)
+			{
+				//english
+				$news_english[$no_news]=$news_english[$no_news]+1;	
+			}
+			else if($news_category==652)
+			{
+				//chinese
+				$news_chinese[$no_news]=$news_chinese[$no_news]+1;
+			}
+		}
+		//$latest_news=$latest_news+1;
+		//$journalists_id[$latest_journalists-1]=$myrows_journalists->user_id;
+		//$journalists_name[$latest_journalists-1]="";
+		//$journalists_name[$latest_journalists-1] = $wpdb->get_var( "SELECT display_name FROM wp_users WHERE ID='".$journalists_id[$latest_journalists-1]."'");
+	}	
+}
+//echo("$latest_news<br>");
+
+for($i=0;$i<=$latest_news-1;$i++)
+{
+	$latest_news_content[$i]['y']=$news_time[$i];
+	$latest_news_content[$i]['a']=$news_chinese[$i];
+	$latest_news_content[$i]['b']=$news_english[$i];
+	
+	//echo $news_time[$i] .":".$news_english[$i].":".$news_chinese[$i]."<br>";
+}
+
 ?>
 
 
@@ -289,7 +516,7 @@ jQuery(document).ready( function() {
 			</div>
 			<div class="panel-body">
 				<div class="table-responsive">
-					<table class="table table-hover table-striped">
+					<table class="table">
 						<thead>
 							<tr>
 								<th colspan="4">Network Statistics</th>
@@ -297,8 +524,8 @@ jQuery(document).ready( function() {
 						</thead>
 						<tbody>
 							<tr>
-								<td colspan="2"><center><?php echo get_avatar( get_current_user_id() ); ?></center></td>
-								<td colspan="2"><center><?php echo get_avatar( get_current_user_id() ); ?></center></td>
+								<td colspan="2"><center><h2><b>Experts</b></h2></center></td>
+								<td colspan="2"><center><h2><b>Journalists</b></h2></center></td>
 							</tr>
 						 
 							<tr>
@@ -309,9 +536,9 @@ jQuery(document).ready( function() {
 								<td colspan="4"><b>Newest Member</b></td>
 							</tr>
 							<tr>
-								<td rowspan="2"><?php if($latest_experts>=1){ echo get_avatar( $experts_id[0] ); } ?></td>
+								<td rowspan="2"><?php if($latest_experts>=1){ echo "<a href='https://www.pitch.asia/view-profile?id=$experts_id[0]'>".get_avatar( $experts_id[0] )."</a>"; } ?></td>
 								<td><?php if($latest_experts>=1){ echo $experts_name[0]; } ?></td>
-								<td rowspan="2"><?php if($latest_journalists>=1){ echo get_avatar( $journalists_id[0] ); } ?></td>
+								<td rowspan="2"><?php if($latest_journalists>=1){ echo "<a href='https://www.pitch.asia/view-profile?id=$journalists_id[0]'>".get_avatar( $journalists_id[0] )."</a>"; } ?></td>
 								<td><?php if($latest_journalists>=1){ echo $journalists_name[0]; } ?></td>
 							</tr>
 							<tr>
@@ -319,9 +546,9 @@ jQuery(document).ready( function() {
 								<td>Journalist</td>
 							</tr>
 							<tr>
-								<td rowspan="2"><?php if($latest_experts>=2){ echo get_avatar( $experts_id[1] ); } ?></td>
+								<td rowspan="2"><?php if($latest_experts>=2){ echo "<a href='https://www.pitch.asia/view-profile?id=$experts_id[1]'>".get_avatar( $experts_id[1] )."</a>"; } ?></td>
 								<td><?php if($latest_experts>=2){ echo $experts_name[1]; } ?></td>
-								<td rowspan="2"><?php if($latest_journalists>=2){ echo get_avatar( $journalists_id[1] ); } ?></td>
+								<td rowspan="2"><?php if($latest_journalists>=2){ echo "<a href='https://www.pitch.asia/view-profile?id=$journalists_id[1]'>".get_avatar( $journalists_id[1] )."</a>"; } ?></td>
 								<td><?php if($latest_journalists>=2){ echo $journalists_name[1]; } ?></td>
 							</tr>
 							<tr>
@@ -350,7 +577,20 @@ jQuery(document).ready( function() {
 		</div>
 	</div>
 </div>
-
+<script> // AUTO TRIGGER FOR 1st Load
+//json_encode($arr)
+	// Line Chart
+	Morris.Line({
+	  element: 'morris-line-chart',
+	  data: 
+		<?php echo json_encode($latest_news_content); ?>
+	  ,
+	  xkey: 'y',
+	  ykeys: ['a', 'b'],
+	  labels: ['Chinese News', 'English News']
+	});
+	
+</script>
 <?php } ?>
 
 

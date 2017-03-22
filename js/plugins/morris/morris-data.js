@@ -2,34 +2,24 @@
 
 jQuery(function() {
 
-
 	// Line Chart
-    Morris.Line({
-        // ID of the element in which to draw the chart.
-        element: 'morris-line-chart',
-        // Chart data records -- each entry in this array corresponds to a point on
-        // the chart.
-        data: [{
-            d: '2012-10-01',
-            visits: 802
-        }, {
-            d: '2012-10-02',
-            visits: 783
-        }, {
-            d: '2012-10-03',
-            visits: 820
-        }, ],
-        // The name of the data record attribute that contains x-visitss.
-        xkey: 'd',
-        // A list of names of data record attributes that contain y-visitss.
-        ykeys: ['visits'],
-        // Labels for the ykeys -- will be displayed when you hover over the
-        // chart.
-        labels: ['Visits'],
-        // Disables line smoothing
-        smooth: true,
-        resize: true
-    });
+	Morris.Line({
+	  element: 'morris-line-chart',
+	  data: [
+		{ y: '2006', a: 100, b: 90 },
+		{ y: '2007', a: 75,  b: 65 },
+		{ y: '2008', a: 50,  b: 40 },
+		{ y: '2009', a: 75,  b: 65 },
+		{ y: '2010', a: 50,  b: 40 },
+		{ y: '2011', a: 75,  b: 65 },
+		{ y: '2012', a: 100, b: 90 }
+	  ],
+	  xkey: 'y',
+	  ykeys: ['a', 'b'],
+	  labels: ['Chinese News', 'English News']
+	});
+	
+    
 	
     // Area Chart
     Morris.Area({
